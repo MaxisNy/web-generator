@@ -1,9 +1,10 @@
 from textnode import TextNode
+from htmlnode import HTMLNode
 
 def main():
-    tn1 = TextNode("This is a text node", "bold", "https://www.boot.dev")
-    print(tn1)
-    tn2 = TextNode("This is a text node", "normal", "https://www.boot.dev")
-    print(tn1 == tn2)
+    htmlnode1 = HTMLNode("a", "some link here", [], {"href": "https://www.google.com", "target": "_blank"})
+    print(htmlnode1)
+    htmlnode2 = HTMLNode("div", None, [htmlnode1], None)
+    print(htmlnode2)
 
 main()
