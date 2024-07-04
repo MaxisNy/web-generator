@@ -1,3 +1,5 @@
+from typing import Any
+
 class HTMLNode:
 
     def __init__(self, tag=None, value=None, children=None, props=None) -> None:
@@ -16,9 +18,22 @@ class HTMLNode:
                 props_str += " " + prop + "=" + f'"{self.props.get(prop)}"'
         return props_str
 
-    def __repr__(self) -> str:
-        output = f"HTMLNode TAG: {self.tag}\n"
-        output += f"HTMLNode VALUE: {self.value}\n"
-        output += f"HTMLNode CHILDREN: {self.children}".replace('\n', ', ') + "\n"
-        output += f"HTMLNode PROPS: {self.props}"
-        return output
+    def __repr__(self):
+        return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
+    
+class LeafNode(HTMLNode):
+
+    def __init__(self, tag, value, props=None) -> None:
+        super().__init__(tag, value, None, props)
+
+    def to_html(self):
+        if self.value == None:
+            raise ValueError
+        if self.tag == None:
+            return self.value
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+        
+    def __repr__(self):
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
+
+
