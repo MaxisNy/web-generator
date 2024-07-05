@@ -1,9 +1,5 @@
 import unittest
-
-from textnode import (
-    TextNode
-)
-
+from textnode import *
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -32,6 +28,13 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is a text node", TextNode.text_type_text, "https://www.boot.dev")
         self.assertEqual(
             "TextNode(This is a text node, text, https://www.boot.dev)", repr(node)
+        )
+    
+    def test_split_nodes(self):
+        node = TextNode("This is text with a `code block` word", TextNode.text_type_text)
+        new_nodes = split_nodes_delimiter([node], "`", TextNode.text_type_code)
+        self.assertEqual(
+            new_nodes, [TextNode("This is text with a ", TextNode.text_type_text), TextNode("code block", TextNode.text_type_code), TextNode(" word", TextNode.text_type_text),]
         )
 
 

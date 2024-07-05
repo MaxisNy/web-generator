@@ -9,6 +9,8 @@ class TextNode:
     text_type_link = "link"
     text_type_image = "image"
 
+    valid_delimiters = ['*', '**', '`']
+
     def __init__(self, text, text_type, url=None) -> None:
         self.text = text
         self.text_type = text_type
@@ -36,3 +38,20 @@ def text_node_to_html_node(text_node: TextNode):
             return LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
         case __:
             raise Exception(f"Invalid text type: {text_node.text_type}")
+
+def split_nodes_delimiter(old_nodes: list, delimiter: str, text_type) -> list:
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type == TextNode.text_type_text:
+            if delimiter in TextNode.valid_delimiters:
+                left_text, inner_text, right_text = node.text.split(delimiter)[0], node.text.split(delimiter)[1], node.text.split(delimiter)[2]
+                new_nodes.extend([
+                    TextNode(left_text, TextNode.text_type_text),
+                    TextNode(inner_text, text_type),
+                    TextNode(right_text, TextNode.text_type_text)
+                ])
+            else:
+                raise ValueError(f"Invalid Markdown delimiter: {delimiter}")
+        else:
+            new_nodes.append(node)
+    return new_nodes
