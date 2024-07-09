@@ -2,22 +2,19 @@ from textnode import *
 from inline_markdown import *
 from markdown_blocks import *
 from htmlnode import HTMLNode, LeafNode, ParentNode
+import re
+
+pattern_to_type_dict = {
+    r"#{1,6}\s\w+(\s\w+)*": block_type_heading,
+    r"`{3}\n*.*`{3}": block_type_code,
+    r"(>.*\n)*(>.*)": block_type_quote,
+    r"((\*|-)\s.*\n)*((\*|-)\s.*)": block_type_ulist,
+    r"(\d+\.\s.*)+": block_type_olist
+}
 
 def main():
-    heading = "# sample heading"
-    print(block_to_block_type(heading))
-    code = "``` sample code ```"
-    print(block_to_block_type(code))
-    quote = """> quote one
-    > quote two"""
-    print(block_to_block_type(quote))
-    ul = """* line one
-    - line two"""
-    print(block_to_block_type(ul))
-    ol = """1. line one
-    2. line two"""
-    print(block_to_block_type(ol))
-    par = "sample paragraph here"
-    print(block_to_block_type(par))
+    block = "* list\n* items"
+    pattern = r"((\*|-)\s.*\n)*((\*|-)\s.*)"
+    print(re.search(pattern, block))
 
 main()
