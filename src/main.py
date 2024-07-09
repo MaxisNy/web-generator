@@ -1,17 +1,23 @@
 from textnode import *
 from inline_markdown import *
-from block_markdown import *
+from markdown_blocks import *
 from htmlnode import HTMLNode, LeafNode, ParentNode
 
 def main():
-    text = """This is **bolded** paragraph
-            
-            This is another paragraph with *italic* text and `code` here
-            This is the same paragraph on a new line
-
-            * This is a list
-            * with items"""
-    for block in markdown_to_blocks(text):
-        print(block)
+    heading = "# sample heading"
+    print(block_to_block_type(heading))
+    code = "``` sample code ```"
+    print(block_to_block_type(code))
+    quote = """> quote one
+    > quote two"""
+    print(block_to_block_type(quote))
+    ul = """* line one
+    - line two"""
+    print(block_to_block_type(ul))
+    ol = """1. line one
+    2. line two"""
+    print(block_to_block_type(ol))
+    par = "sample paragraph here"
+    print(block_to_block_type(par))
 
 main()
