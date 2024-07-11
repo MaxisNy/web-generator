@@ -11,7 +11,8 @@ block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
 pattern_to_type_dict = {
-    r"#{1,6}\s\w+(\s\w+)*": block_type_heading,
+    # r"#{1,6}\s\w+(\s\w+)*": block_type_heading,
+    r"#{1,6}\s.*": block_type_heading,
     r"`{3}\n*.*\n*`{3}": block_type_code,
     r"(>.*\n)*(>.*)": block_type_quote,
     r"((\*|-)\s.*\n)*((\*|-)\s.*)": block_type_ulist,
