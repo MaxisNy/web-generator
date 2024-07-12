@@ -4,8 +4,6 @@
 
 > All that is gold does not glitter
 
-> It's about drive, it's about power
-
 ## Reasons I like Tolkien
 
 * You can spend years studying the legendarium and still not understand its depths
