@@ -11,7 +11,8 @@ block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
 pattern_to_type_dict = {
-    r"#{1,6}\s\w+(\s\w+)*": block_type_heading,
+    # r"#{1,6}\s\w+(\s\w+)*": block_type_heading,
+    r"#{1,6}\s.*": block_type_heading,
     r"`{3}\n*.*\n*`{3}": block_type_code,
     r"(>.*\n)*(>.*)": block_type_quote,
     r"((\*|-)\s.*\n)*((\*|-)\s.*)": block_type_ulist,
@@ -58,7 +59,7 @@ def heading_to_html_node(markdown_block):
     return ParentNode(f"h{level}", children)
 
 def code_to_html_node(markdown_block):
-    children = text_to_children(markdown_block[4:len(markdown_block) - 4])
+    children = text_to_children(markdown_block[4:len(markdown_block) - 3])
     return ParentNode("pre", [ParentNode("code", children)])
 
 def ulist_to_html_node(markdown_block):
@@ -109,6 +110,3 @@ def markdown_to_html_node(markdown):
                 div_children.append(ulist_to_html_node(block))
                 continue
     return ParentNode("div", div_children)
-
-
-
