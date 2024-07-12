@@ -1,11 +1,7 @@
-from textnode import *
-from inline_markdown import *
-from markdown_blocks import *
-from htmlnode import HTMLNode, LeafNode, ParentNode
 import os
 import datetime
 import shutil
-from gencontent import generate_page, generate_page_recursively
+from gencontent import generate_page_recursively
 
 __home_path = "/Users/max/workspace/github.com/MaxisNy/web-generator"
 __log_filename = "weblog_" + str(datetime.datetime.now())[:-7].replace(' ', '_') + ".txt"
@@ -54,6 +50,5 @@ def copy_directory(src_path, destination_path="public") -> str:
 
 def main():
     copy_directory("static", "public")
-    # generate_page(os.path.join(__home_path, "content/majesty/index.md"), os.path.join(__home_path, "template.html"), os.path.join(__home_path, "public/index.html"))
     generate_page_recursively(os.path.join(__home_path, "content"), os.path.join(__home_path, "template.html"), os.path.join(__home_path, "public"))
 main()
